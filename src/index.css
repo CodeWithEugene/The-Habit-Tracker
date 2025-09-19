@@ -1,0 +1,173 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --figma-blue: #1E90FF;
+  --figma-purple: #A259FF;
+  --figma-gray-light: #F0F2F5;
+  --figma-gray-dark: #2C2C2C;
+  
+  /* Custom shadows */
+  --shadow-subtle: 0 2px 8px rgba(0, 0, 0, 0.04);
+  --shadow-elevated: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-floating: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+/* Base styles */
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--figma-gray-light);
+  color: var(--figma-gray-dark);
+}
+
+/* Animation keyframes */
+@keyframes checkmark {
+  0% { transform: scale(0.8); opacity: 0; }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(30, 144, 255, 0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(30, 144, 255, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(30, 144, 255, 0); }
+}
+
+@keyframes slide-up {
+  0% { transform: translateY(8px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes progress {
+  0% { stroke-dashoffset: 100; }
+  100% { stroke-dashoffset: var(--target-offset); }
+}
+
+/* Custom components */
+.accent-text {
+  background: linear-gradient(135deg, var(--figma-blue), var(--figma-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.card {
+  @apply bg-white rounded-2xl shadow-sm border border-gray-200/50;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-elevated);
+}
+
+.btn-primary {
+  @apply relative overflow-hidden px-6 py-3 rounded-xl font-medium transition-all duration-300;
+  background: linear-gradient(135deg, var(--figma-blue), var(--figma-purple));
+  color: white;
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--figma-purple), var(--figma-blue));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.btn-primary:hover::before {
+  opacity: 1;
+}
+
+.btn-primary > * {
+  position: relative;
+  z-index: 1;
+}
+
+.btn-secondary {
+  @apply bg-white text-[#1E90FF] border-2 border-[#1E90FF] px-6 py-3 rounded-xl font-medium 
+    transition-all duration-300 hover:bg-[#1E90FF]/5;
+}
+
+.input-field {
+  @apply mt-2 block w-full rounded-xl border-2 border-gray-200 px-4 py-3 
+    transition-all duration-300 focus:border-[#1E90FF] focus:ring-2 focus:ring-[#1E90FF]/20;
+}
+
+.badge {
+  @apply px-3 py-1.5 rounded-xl text-sm font-medium transition-all duration-300;
+}
+
+.badge-blue {
+  @apply bg-[#1E90FF]/10 text-[#1E90FF] hover:bg-[#1E90FF]/20;
+}
+
+.badge-purple {
+  @apply bg-[#A259FF]/10 text-[#A259FF] hover:bg-[#A259FF]/20;
+}
+
+.badge-gray {
+  @apply bg-gray-100 text-gray-700 hover:bg-gray-200;
+}
+
+/* Custom checkbox */
+.habit-checkbox {
+  @apply w-6 h-6 rounded-xl border-2 flex items-center justify-center 
+    transition-all duration-300 cursor-pointer;
+}
+
+.habit-checkbox.unchecked {
+  @apply border-gray-300 hover:border-[#1E90FF] hover:bg-[#1E90FF]/5;
+}
+
+.habit-checkbox.checked {
+  @apply border-[#1E90FF] bg-[#1E90FF] text-white;
+  animation: pulse 0.5s cubic-bezier(0.4, 0, 0.6, 1);
+}
+
+.habit-checkbox svg {
+  animation: checkmark 0.3s cubic-bezier(0.4, 0, 0.6, 1);
+}
+
+/* Progress circle */
+.progress-ring {
+  transform: rotate(-90deg);
+}
+
+.progress-ring__circle {
+  stroke-dasharray: 100;
+  transition: stroke-dashoffset 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Modal animations */
+.modal-overlay {
+  @apply fixed inset-0 bg-black/30 backdrop-blur-sm 
+    transition-all duration-300;
+}
+
+.modal-content {
+  @apply bg-white rounded-2xl shadow-lg max-w-lg w-full max-h-[90vh] overflow-y-auto
+    transform transition-all duration-500;
+  animation: slide-up 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Grid system (8pt) */
+.spacing-1 { margin: 8px; }
+.spacing-2 { margin: 16px; }
+.spacing-3 { margin: 24px; }
+.spacing-4 { margin: 32px; }
+.spacing-5 { margin: 40px; }
+.spacing-6 { margin: 48px; }
+
+.padding-1 { padding: 8px; }
+.padding-2 { padding: 16px; }
+.padding-3 { padding: 24px; }
+.padding-4 { padding: 32px; }
+.padding-5 { padding: 40px; }
+.padding-6 { padding: 48px; }
